@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase Atual</title>
+</head>
+<body>
+    <h1>Fase Atual - Partidas</h1>
+    <ul>
+        <% matches.forEach(match => { %>
+            <li>
+                <a href="/match/<%= match._id %>">
+                    <%= match.teamA.nome %> (Pontos: <%= match.scoreA %>) VS <%= match.teamB.nome %> (Pontos: <%= match.scoreB %>)
+                </a>
+                <% if (match.completed) { %> - <strong>Encerrada</strong><% } %>
+            </li>
+        <% }); %>
+    </ul>
+
+    <a href="/">Voltar para o início</a>
+</body>
+</html>

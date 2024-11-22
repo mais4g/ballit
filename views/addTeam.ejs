@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Times</title>
+</head>
+<body>
+    <h1>Cadastro de Times</h1>
+    <form id="addTeamForm">
+        <label>Nome do Time: <input type="text" name="name" required /></label><br>
+        <label>Grito de Guerra: <input type="text" name="warCry" required /></label><br>
+        <label>Ano de Fundação: <input type="number" name="foundationYear" required /></label><br>
+        <button type="submit">Cadastrar Time</button>
+    </form>
+    <div id="message"></div>
+    <button onclick="window.location.href='/standings'">Ver Times</button>
+
+    <script>
+        document.getElementById("addTeamForm").onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const response = await fetch('/api/teams', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            const messageDiv = document.getElementById('message');
+            if (response.ok) {
+                messageDiv.textContent = result.message;
+                event.target.reset();
+            } else {
+                messageDiv.textContent = result.message || "Erro ao cadastrar o time";
+            }
+        };
+    </script>
+</body>
+</html>

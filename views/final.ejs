@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados Finais</title>
+</head>
+<body>
+    <h1>Resultados Finais do Campeonato</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Blots</th>
+                <th>Plifs</th>
+                <th>Advrunghs</th>
+                <th>Pontuação Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% teams.forEach(team => { %>
+                <tr>
+                    <td><%= team.nome %></td>
+                    <td><%= team.blots %></td>
+                    <td><%= team.plifs %></td>
+                    <td><%= team.advrunghs %></td>
+                    <td><%= team.points %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <h2>Campeão: <%= champion.nome %></h2>
+    <p>Grito de Guerra: <%= champion.gritoDeGuerra %></p>
+
+    <a href="/">Voltar para o início</a>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Times</title>
+</head>
+<body>
+    <h1>Cadastro de Times</h1>
+    <form action="/teams/create" method="POST">
+        <label for="nome">Nome do Time:</label>
+        <input type="text" name="nome" required>
+        
+        <label for="gritoDeGuerra">Grito de Guerra:</label>
+        <input type="text" name="gritoDeGuerra" required>
+        
+        <label for="anoDeFundacao">Ano de Fundação:</label>
+        <input type="number" name="anoDeFundacao" required>
+        
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <h2>Times Cadastrados</h2>
+    <ul>
+        <% teams.forEach(team => { %>
+            <li>
+                <%= team.nome %> - <%= team.gritoDeGuerra %> - Fundado em <%= team.anoDeFundacao %>
+                <form action="/teams/<%= team._id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit">Excluir</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+
+    <a href="/">Voltar para o início</a>
+
+    <!-- teams.ejs -->
+<div id="errorPopup" class="popup hidden">
+    <span id="popupMessage"></span>
+    <button onclick="closePopup()">Fechar</button>
+</div>
+
+<script>
+    // Exibir o popup
+    function showError(message) {
+        const popup = document.getElementById('errorPopup');
+        const popupMessage = document.getElementById('popupMessage');
+        popupMessage.textContent = message;
+        popup.classList.remove('hidden');
+    }
+
+    // Fechar o popup
+    function closePopup() {
+        const popup = document.getElementById('errorPopup');
+        popup.classList.add('hidden');
+    }
+
+    // Verificar se há erro vindo do backend
+    const errorMessage = "<%= error || '' %>";
+    if (errorMessage) {
+        showError(errorMessage);
+    }
+</script>
+
+<style>
+    .popup {
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        padding: 1em;
+        border-radius: 8px;
+        z-index: 1000;
+    }
+    .popup.hidden {
+        display: none;
+    }
+    button {
+        margin-top: 1em;
+        padding: 0.5em 1em;
+    }
+</style>
+
+</body>
+</html>
